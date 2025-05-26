@@ -3,20 +3,24 @@
 ────────────────────────────────────────────────────────────────*/
 :root {
   /* core palette */
-  --color-text:  #F0ECE3; /* soft cream */
-  --color-accent: #8FAE71; /* moss green */
-  --color-highlight: #CDA271; /* warm bronze */
+  --color-text:  #F0ECE3;
+  --color-accent: #A6D672;      /* brighter moss green */
+  --color-highlight: #FFD580;   /* soft solar gold */
+  --color-glow: #A6D67288;      /* green glow with alpha */
+  --color-glow2: #FFD58055;     /* gold glow with alpha */
 
   /* glass effect */
-  --glass-bg: rgba(255,255,255,0.15);
-  --glass-blur: 10px;
+  --glass-bg: rgba(255,255,255,0.18);
+  --glass-blur: 14px;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: 'Familjen Grotesk', sans-serif;
-  background: url('/images/light-wood-texture.jpg') center/cover;
+  background: 
+    linear-gradient(120deg, #e6f9e6 0%, #fffbe6 100%),
+    url('/images/light-wood-texture.jpg') center/cover;
   color: var(--color-text);
 }
 
@@ -39,20 +43,20 @@ html, body {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
   border-radius: 1.5rem;
-  box-shadow: 0 0 2rem rgba(0,0,0,0.2);
+  box-shadow:
+    0 0 2rem 0 rgba(0,0,0,0.18),
+    0 0 1.5rem 0 var(--color-glow),
+    0 0 0.5rem 0 var(--color-glow2);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 1.5rem;
-  padding: 1.5rem;
-}
-
-/* define named areas for your apps/widgets */
-.mirror {
+  grid-template-columns: 1fr 1.5fr 1.5fr 1fr;
+  grid-template-rows: 1fr 1.5fr 1.5fr 1fr;
+  gap: 1.2rem;
+  padding: 1.2rem;
   grid-template-areas:
-    "time   time  weather apps"
-    "date   date  news    apps"
-    "stats  stats quotes  apps";
+    "time    .      .       weather"
+    "date    .      .         ."
+    ".       .      .         ."
+    ".       .      news    apps";
 }
 
 /* common widget styling (glass cards) */
@@ -60,11 +64,14 @@ html, body {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
   border-radius: 1rem;
-  padding: 1rem;
+  padding: 0.7rem;
+  font-size: 0.95em;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: inset 0 0 0.5rem rgba(0,0,0,0.1);
+  box-shadow:
+    0 0 0.5rem 0 var(--color-glow2),
+    0 0 1rem 0 var(--color-glow);
 }
 
 /*────────────────────────────────────────────────────────────────
@@ -73,7 +80,7 @@ html, body {
 /* Time widget */
 .time {
   grid-area: time;
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: left;
   letter-spacing: 0.05em;
 }
@@ -81,7 +88,7 @@ html, body {
 /* Date widget */
 .date {
   grid-area: date;
-  font-size: 1.25rem;
+  font-size: 1rem;
   opacity: 0.85;
 }
 
@@ -92,7 +99,7 @@ html, body {
   align-items: center;
 }
 .weather .temp {
-  font-size: 2rem;
+  font-size: 1.3rem;
   margin-right: 0.5rem;
 }
 .weather img {
@@ -101,8 +108,8 @@ html, body {
 }
 
 /* News / quotes / stats */
-.news   { grid-area: news;   font-size: 0.9rem; }
-.quotes { grid-area: quotes; font-size: 1rem; font-style: italic; }
+.news   { grid-area: news;   font-size: 0.85rem; }
+.quotes { grid-area: quotes; font-size: 0.85rem; font-style: italic; }
 .stats  { grid-area: stats;  }
 
 /* App grid on the right */
@@ -118,12 +125,14 @@ html, body {
 .apps .app-icon {
   width: 2.5rem;
   height: 2.5rem;
-  background: var(--color-accent);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-highlight));
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 0.5rem rgba(0,0,0,0.1);
+  box-shadow:
+    0 0 0.5rem 0 var(--color-glow2),
+    0 0 0.5rem 0 var(--color-glow);
 }
 .apps .app-icon svg {
   width: 1.5rem;
@@ -142,8 +151,10 @@ html, body {
   transform: translateX(-50%);
   width: 120%;
   height: 4rem;
-  background: url('/images/leaf-silhouette.png') repeat-x bottom;
-  opacity: 0.1;
+  background:
+    linear-gradient(90deg, #FFD58033 0%, #A6D67222 100%),
+    url('/images/leaf-silhouette.png') repeat-x bottom;
+  opacity: 0.13;
   pointer-events: none;
 }
 
