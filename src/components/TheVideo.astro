@@ -1,22 +1,29 @@
 ---
 ---
 
-<video autoplay poster="/video-fallback-image.jpg"></video>
+<style>
+.video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none; /* So it doesn't block clicks */
+}
+</style>
+
+<video class="video-bg" autoplay muted playsinline poster="/video-fallback-image.jpg"></video>
 
 <script lang="js">
-
-// Get Video
 const video = document.querySelector("video");
-
-// Navigator object
 if (navigator.mediaDevices.getUserMedia) {
-  
   navigator.mediaDevices
-	.getUserMedia({
-	  video: true
-	})
-	.then((stream) => (video.srcObject = stream))
-	.catch((error) => console.log(error));
+    .getUserMedia({ video: true })
+    .then((stream) => (video.srcObject = stream))
+    .catch((error) => console.log(error));
 }
-
 </script>
